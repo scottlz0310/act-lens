@@ -1,0 +1,24 @@
+name: Test CI (Failing)
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run failing test
+        run: |
+          python -c "
+          def calculate(a, b):
+              return a + b
+          
+          result = calculate(2, 2)
+          assert result == 5, f'Expected 5, got {result}'
+          "
