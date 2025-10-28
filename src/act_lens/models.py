@@ -11,8 +11,8 @@ class FailureInfo(BaseModel):
     workflow: str = Field(..., description="ワークフローファイル名（例: ci.yml）")
     job: str = Field(..., description="ジョブ名（例: test）")
     step: str = Field(..., description="ステップ名（例: Run pytest）")
-    timestamp: datetime = Field(..., description="失敗発生時刻")
-    duration: float = Field(..., ge=0, description="実行時間（秒）")
+    timestamp: datetime = Field(default_factory=datetime.now, description="失敗発生時刻")
+    duration: float | None = Field(None, ge=0, description="実行時間（秒）")
     error_type: str = Field(..., description="エラータイプ（例: ASSERTION, TIMEOUT）")
     message: str = Field(..., description="エラーメッセージ")
     file_path: str | None = Field(None, description="エラー発生ファイルパス")
@@ -28,14 +28,17 @@ class FailureInfo(BaseModel):
 
     def format_duration(self) -> str:
         """実行時間を人間可読形式にフォーマット"""
-        if self.duration < 60:
-            return f"{self.duration:.1f}秒"
+        if self.duration is None or self.duration < 60:
+            duration_val = self.duration or 0.0
+            return f"{duration_val:.1f}秒"
         minutes = int(self.duration // 60)
-        seconds = self.duration % 60
-        return f"{minutes}分{seconds:.1f}秒"
+        seconds = int(self.duration % 60)
+        return f"{minutes}m {seconds}s"
 
-    def get_location(self) -> str | None:
+    def get_location(self) -> str:
         """エラー発生箇所を文字列で取得"""
         if self.file_path and self.line_number:
             return f"{self.file_path}:{self.line_number}"
-        return self.file_path
+        if self.file_path:
+            return self.file_path
+        return "場所不明"

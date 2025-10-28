@@ -39,8 +39,8 @@ jobs:
       - name: Run bandit
         run: uv run bandit -r src -c pyproject.toml
 
-      # - name: Run pytest
-      #   run: uv run pytest --cov=act_lens --cov-report=term-missing
+      - name: Run pytest
+        run: uv run pytest --cov=act_lens --cov-report=term-missing
 
   security:
     runs-on: ubuntu-latest

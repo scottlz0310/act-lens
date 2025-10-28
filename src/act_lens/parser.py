@@ -114,7 +114,8 @@ class LogParser:
     def _extract_error_message(self, lines: list[str]) -> str:
         """エラーメッセージを抽出"""
         for line in reversed(lines):
-            if "Error" in line or "FAILED" in line:
+            # Failure/Error/FAILED を含む行を探す
+            if any(keyword in line for keyword in ["Error", "FAILED", "Failure", "❌"]):
                 return line.strip()
         return "エラーメッセージが見つかりません"
 
@@ -135,12 +136,16 @@ class LogParser:
         for line in lines:
             if "Traceback" in line:
                 in_trace = True
+                trace_lines = [line]  # 新しいトレースバック開始
+                continue
+
             if in_trace:
                 trace_lines.append(line)
-                if line.strip() and not line.startswith(" "):
+                # エラー行（例: ValueError: ...）で終了
+                if line.strip() and not line.startswith(" ") and ":" in line:
                     break
 
-        return "\n".join(trace_lines) if trace_lines else None
+        return "\n".join(trace_lines) if len(trace_lines) > 1 else None
 
     def _extract_context(
         self, lines: list[str], file_path: str | None, line_number: int | None
