@@ -42,7 +42,7 @@ def main(
 
     if verbose:
         console.print("\n[dim]--- ログ ---[/dim]")
-        console.print(log)
+        console.print(log, markup=False)  # マークアップを無効化
         console.print("[dim]--- ログ終了 ---[/dim]\n")
 
     # ログ解析
@@ -60,7 +60,7 @@ def main(
     # プレビュー表示
     if preview:
         console.print("\n[dim]--- レポート ---[/dim]")
-        console.print(report)
+        console.print(report, markup=False)  # マークアップを無効化
         console.print("[dim]--- レポート終了 ---[/dim]\n")
 
     # ファイル保存

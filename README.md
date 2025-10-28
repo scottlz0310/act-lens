@@ -33,6 +33,15 @@ pipx install git+https://github.com/scottlz0310/act-lens.git
 - [act](https://github.com/nektos/act) - GitHub Actionsローカル実行
 - Docker - actの実行環境
 
+**actの設定（推奨）:**
+
+`.actrc`ファイルを作成してfullイメージを使用（setup-uvなどの対応）：
+```bash
+echo "-P ubuntu-latest=catthehacker/ubuntu:full-latest" > .actrc
+```
+
+注意: fullイメージは約18GBあります。
+
 ## 使い方
 
 ```bash

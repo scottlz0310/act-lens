@@ -36,6 +36,9 @@ env/
 # act-lens出力
 .act-lens/
 
+# act設定（開発者ごとに異なる可能性）
+.actrc
+
 # テストカバレッジ
 .coverage
 htmlcov/
