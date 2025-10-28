@@ -6,16 +6,21 @@ from act_lens.models import FailureInfo
 class MarkdownFormatter:
     """FailureInfoからMarkdownレポートを生成"""
 
-    def format(self, failure: FailureInfo) -> str:
+    def format(self, failure: FailureInfo, compact: bool = False) -> str:
         """
         AIチャット用のMarkdownレポートを生成
 
         Args:
             failure: 失敗情報
+            compact: Trueの場合は簡潔モード（デフォルト: False=詳細）
 
         Returns:
             Markdownテキスト
         """
+        if compact:
+            return self._format_compact(failure)
+
+        # デフォルト: 詳細モード
         sections = [
             self._header(failure),
             self._error_summary(failure),
@@ -64,3 +69,11 @@ class MarkdownFormatter:
 ```
 {failure.stack_trace}
 ```"""
+
+    def _format_compact(self, failure: FailureInfo) -> str:
+        """簡潔モード: エラーサマリーのみ"""
+        return f"""## 🔍 Act-Lens Failure Report (Compact)
+
+**Workflow**: {failure.workflow} → {failure.job}
+**Error**: `{failure.error_type}`
+**Message**: {failure.message}"""

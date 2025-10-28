@@ -23,6 +23,9 @@ def main(
     ] = None,
     job: Annotated[str | None, typer.Option("--job", "-j", help="実行するジョブ名")] = None,
     preview: Annotated[bool, typer.Option("--preview", "-p", help="プレビュー表示")] = False,
+    compact: Annotated[
+        bool, typer.Option("--compact", help="簡潔モード（エラーサマリーのみ）")
+    ] = False,
     no_clipboard: Annotated[
         bool, typer.Option("--no-clipboard", help="クリップボードにコピーしない")
     ] = False,
@@ -55,7 +58,7 @@ def main(
 
     # Markdown生成
     formatter = MarkdownFormatter()
-    report = formatter.format(failure)
+    report = formatter.format(failure, compact=compact)
 
     # プレビュー表示
     if preview:

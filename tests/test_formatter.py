@@ -34,9 +34,21 @@ class TestMarkdownFormatter:
     ) -> None:
         """基本的なMarkdown構造が生成される"""
         markdown = formatter.format(sample_failure)
-        assert "# 🔍 Act-Lens Failure Report" in markdown
-        assert "## Error Summary" in markdown
-        assert "## Error Details" in markdown
+        assert "## 🔍 Act-Lens Failure Report" in markdown
+        assert "### Error Summary" in markdown
+        assert "### Error Details" in markdown
+
+    def test_format_compact_mode(
+        self, formatter: MarkdownFormatter, sample_failure: FailureInfo
+    ) -> None:
+        """コンパクトモードでは簡潔な出力が生成される"""
+        markdown = formatter.format(sample_failure, compact=True)
+        assert "## 🔍 Act-Lens Failure Report (Compact)" in markdown
+        assert "ASSERTION" in markdown
+        assert "AssertionError" in markdown
+        # 詳細セクションは含まれない
+        assert "### Error Details" not in markdown
+        assert "### Stack Trace" not in markdown
 
     def test_format_contains_workflow_info(
         self, formatter: MarkdownFormatter, sample_failure: FailureInfo
