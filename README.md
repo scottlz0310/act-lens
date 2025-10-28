@@ -35,12 +35,13 @@ pipx install git+https://github.com/scottlz0310/act-lens.git
 
 **actの設定（推奨）:**
 
-`.actrc`ファイルを作成してfullイメージを使用（setup-uvなどの対応）：
+`.actrc`ファイルを作成してact-latestイメージを使用（GitHub Actions互換）：
+
 ```bash
-echo "-P ubuntu-latest=catthehacker/ubuntu:full-latest" > .actrc
+echo "-P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest" > .actrc
 ```
 
-注意: fullイメージは約18GBあります。
+注意: act-latestイメージは約18GBあります。
 
 ## 使い方
 
