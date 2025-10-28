@@ -1,6 +1,7 @@
 """CLIエントリーポイント"""
 
 from pathlib import Path
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -17,16 +18,16 @@ console = Console()
 
 @app.command()
 def main(
-    workflow: str = typer.Option(
-        None, "--workflow", "-w", help="ワークフローファイル名（例: ci.yml）"
-    ),
-    job: str = typer.Option(None, "--job", "-j", help="実行するジョブ名"),
-    preview: bool = typer.Option(False, "--preview", "-p", help="プレビュー表示"),
-    no_clipboard: bool = typer.Option(
-        False, "--no-clipboard", help="クリップボードにコピーしない"
-    ),
-    output: Path = typer.Option(None, "--output", "-o", help="出力ファイルパス"),
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="詳細ログ表示"),
+    workflow: Annotated[
+        str | None, typer.Option("--workflow", "-w", help="ワークフローファイル名")
+    ] = None,
+    job: Annotated[str | None, typer.Option("--job", "-j", help="実行するジョブ名")] = None,
+    preview: Annotated[bool, typer.Option("--preview", "-p", help="プレビュー表示")] = False,
+    no_clipboard: Annotated[
+        bool, typer.Option("--no-clipboard", help="クリップボードにコピーしない")
+    ] = False,
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="出力ファイルパス")] = None,
+    verbose: Annotated[bool, typer.Option("--verbose", "-v", help="詳細ログ表示")] = False,
 ) -> None:
     """act実行してエラーログを整形"""
     console.print(Panel.fit("🔍 [bold cyan]Act-Lens[/bold cyan]", border_style="cyan"))

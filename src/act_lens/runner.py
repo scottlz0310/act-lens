@@ -19,14 +19,10 @@ class ActRunner:
         if not self.workflow_dir.exists():
             return []
 
-        workflows = list(self.workflow_dir.glob("*.yml")) + list(
-            self.workflow_dir.glob("*.yaml")
-        )
+        workflows = list(self.workflow_dir.glob("*.yml")) + list(self.workflow_dir.glob("*.yaml"))
         return [w.name for w in workflows]
 
-    def run_act(
-        self, workflow: str | None = None, job: str | None = None
-    ) -> tuple[str, int]:
+    def run_act(self, workflow: str | None = None, job: str | None = None) -> tuple[str, int]:
         """
         actコマンドを実行してログをキャプチャ
 

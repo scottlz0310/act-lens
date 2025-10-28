@@ -24,7 +24,7 @@ dependencies = [
     "pyperclip>=1.8.0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "ruff>=0.0.0",
     "mypy>=1.0.0",

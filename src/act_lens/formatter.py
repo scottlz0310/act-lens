@@ -30,7 +30,7 @@ class MarkdownFormatter:
         return f"""## 🔍 Act-Lens Failure Report
 
 **Workflow**: {failure.workflow} → {failure.job} → {failure.step}
-**Failed at**: {failure.timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+**Failed at**: {failure.timestamp.strftime("%Y-%m-%d %H:%M:%S")}
 **Duration**: {failure.format_duration()}"""
 
     def _error_summary(self, failure: FailureInfo) -> str:
