@@ -1,5 +1,9 @@
 # act-lens 🔍
 
+[![CI](https://github.com/scottlz0310/act-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/scottlz0310/act-lens/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 actの出力を「レンズ」で覗いて整形する軽量CLIツール
 
 ## 概要
@@ -17,10 +21,10 @@ actの出力を「レンズ」で覗いて整形する軽量CLIツール
 
 ```bash
 # uv経由（推奨）
-uv tool install git+https://github.com/[user]/act-lens.git
+uv tool install git+https://github.com/scottlz0310/act-lens.git
 
 # pipx経由
-pipx install git+https://github.com/[user]/act-lens.git
+pipx install git+https://github.com/scottlz0310/act-lens.git
 ```
 
 ## 必要な環境
