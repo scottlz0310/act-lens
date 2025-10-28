@@ -22,7 +22,19 @@ class LogParser:
         (r"IndexError", "INDEX"),
         (r"FileNotFoundError", "FILE_NOT_FOUND"),
         (r"PermissionError", "PERMISSION"),
+        (
+            r"❌\s*(Failure|failed)|"
+            r"Error: Process completed with exit code [1-9]",
+            "BUILD_FAILURE",
+        ),
         (r"Error:", "UNKNOWN"),
+    ]
+
+    # 成功パターン（これらがあればエラーなしと判定）
+    SUCCESS_PATTERNS = [
+        r"✅.*Success",
+        r"All checks passed",
+        r"Success: no issues found",
     ]
 
     def parse(self, log: str, workflow: str | None = None) -> FailureInfo | None:
@@ -79,16 +91,23 @@ class LogParser:
     def _extract_workflow_name(self, lines: list[str]) -> str:
         """ワークフロー名をログから抽出"""
         for line in lines:
-            # actのログから: "INFO[0000] Using docker host 'unix:///var/run/docker.sock'"
-            # ワークフロー名: "[Workflow name/job]"
+            # actログ: "INFO[0000] Using docker host ..."
+            # ワークフロー: "[Workflow name/job]"
             if match := re.search(r"\[([^/\]]+)/", line):
                 return match.group(1)
         return "unknown"
 
     def _detect_error_type(self, log: str) -> str | None:
         """エラータイプを検出"""
+        # まず実際のエラー（BUILD_FAILUREなど）をチェック
         for pattern, error_type in self.ERROR_PATTERNS:
             if re.search(pattern, log, re.IGNORECASE):
+                # UNKNOWNタイプの場合のみ、成功パターンでフィルタリング
+                if error_type == "UNKNOWN":
+                    has_success = any(re.search(p, log) for p in self.SUCCESS_PATTERNS)
+                    # 成功マークがあり、実際のexit codeエラーがない場合は無視
+                    if has_success and not re.search(r"exit code [1-9]|❌.*failed", log):
+                        continue
                 return error_type
         return None
 
@@ -110,7 +129,7 @@ class LogParser:
 
     def _extract_stack_trace(self, lines: list[str]) -> str | None:
         """スタックトレースを抽出"""
-        trace_lines = []
+        trace_lines: list[str] = []
         in_trace = False
 
         for line in lines:

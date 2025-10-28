@@ -1,6 +1,6 @@
 """act実行とログキャプチャ"""
 
-import subprocess
+import subprocess  # nosec B404  # actコマンド実行に必要
 from pathlib import Path
 
 from rich.console import Console
@@ -44,7 +44,7 @@ class ActRunner:
         console.print(f"[cyan]実行中:[/cyan] {' '.join(cmd)}")
 
         try:
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B603  # ユーザー指定のact実行
                 cmd,
                 capture_output=True,
                 text=True,

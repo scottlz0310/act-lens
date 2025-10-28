@@ -1,0 +1,11 @@
+name: Test Failure
+on: push
+
+jobs:
+  test-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 失敗するステップ
+        run: |
+          echo "This will fail"
+          exit 1
