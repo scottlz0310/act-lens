@@ -33,6 +33,7 @@ dev = [
     "bandit>=1.7.0",
     "safety>=2.0.0",
     "pre-commit>=3.0.0",
+    "types-pyperclip>=1.0.0",
 ]
 
 [project.scripts]
