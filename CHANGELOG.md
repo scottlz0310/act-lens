@@ -61,11 +61,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ```bash
 # uvを使用（推奨）
-uv pip install act-lens
+uv tool install git+https://github.com/scottlz0310/act-lens.git
 
-# または通常のpip
-pip install act-lens
+# pipxを使用
+pipx install git+https://github.com/scottlz0310/act-lens.git
 ```
+
+**Note**: PyPIには公開していません。GitHubリポジトリから直接インストールしてください。
 
 ### Prerequisites
 
