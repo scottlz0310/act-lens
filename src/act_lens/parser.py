@@ -74,12 +74,15 @@ class LogParser:
         # ジョブ・ステップ情報抽出
         job, step = self._extract_job_step(lines)
 
+        # 実行時間抽出
+        duration = self._extract_duration(lines)
+
         return FailureInfo(
             workflow=workflow,
             job=job,
             step=step,
             timestamp=datetime.now(),
-            duration=0.0,  # TODO: ログから実行時間を抽出
+            duration=duration,
             error_type=error_type,
             message=message,
             file_path=file_path,
@@ -165,3 +168,20 @@ class LogParser:
                 step = match.group(2).strip()
 
         return job, step
+
+    def _extract_duration(self, lines: list[str]) -> float | None:
+        """実行時間を抽出（秒単位）"""
+        # actログ: "[106.819485ms]" または "[9.988223336s]"
+        for line in reversed(lines):
+            # ミリ秒形式
+            if match := re.search(r"\[(\d+\.?\d*)(ms|milliseconds?)\]", line):
+                return float(match.group(1)) / 1000.0
+            # 秒形式
+            if match := re.search(r"\[(\d+\.?\d*)(s|seconds?)\]", line):
+                return float(match.group(1))
+            # 分形式
+            if match := re.search(r"\[(\d+)m\s*(\d+)s\]", line):
+                minutes = int(match.group(1))
+                seconds = int(match.group(2))
+                return float(minutes * 60 + seconds)
+        return None
