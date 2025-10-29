@@ -5,7 +5,7 @@ description = "actの出力をレンズで覗いて整形するCLIツール"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
-    { name = "Hiro", email = "hiro@example.com" }
+    { name = "scottlz0310", email = "scott.lz0310@gmail.com" }
 ]
 keywords = ["github-actions", "act", "cli", "ci", "testing"]
 classifiers = [
