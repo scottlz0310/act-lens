@@ -55,4 +55,4 @@ repos:
         entry: uv run pytest --maxfail=1 -q
         language: system
         pass_filenames: false
-        stages: [push]
+        stages: [pre-push]

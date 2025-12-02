@@ -37,7 +37,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ruff>=0.0.0",       # リンター・フォーマッター
-    "mypy>=1.0.0",       # 型チェッカー
+    "basedpyright>=1.19.0",       # 型チェッカー
     "pytest>=7.0.0",     # テストフレームワーク
     "pytest-cov>=4.0.0", # カバレッジ
     "bandit>=1.7.0",     # セキュリティチェック
@@ -111,7 +111,7 @@ class FailureInfo(BaseModel):
 ### 言語とツール
 - **日本語使用**: コメント、docstring、エラーメッセージ、応答すべて日本語で記述
 - **パッケージマネージャ**: `uv`を使用（`python`/`python3`の直接実行は禁止）
-- **リント**: `ruff` + `mypy`
+- **リント**: `ruff` + `basedpyright`
 - **セキュリティ**: `Bandit` + `Safety` + `CodeQL`
 - **テスト**: `pytest`
 - **CI/CD**: `pre-commit`でリント・セキュリティチェック実行
