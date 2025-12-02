@@ -26,8 +26,9 @@ repos:
     hooks:
       - id: basedpyright
         name: basedpyright
-        entry: uv run basedpyright
-        language: system
+        entry: basedpyright
+        language: python
+        additional_dependencies: ["basedpyright>=1.19.0"]
         types: [python]
         require_serial: true
 
@@ -41,8 +42,9 @@ repos:
     hooks:
       - id: safety
         name: safety
-        entry: uv run safety check
-        language: system
+        entry: safety check
+        language: python
+        additional_dependencies: ["safety>=2.0.0"]
         pass_filenames: false
 
   # detect-secrets is intentionally not part of pre-commit due to scan cost.
@@ -52,7 +54,8 @@ repos:
     hooks:
       - id: pytest
         name: pytest
-        entry: uv run pytest --maxfail=1 -q
-        language: system
+        entry: pytest --maxfail=1 -q
+        language: python
+        additional_dependencies: ["pytest>=7.0.0"]
         pass_filenames: false
         stages: [pre-push]
