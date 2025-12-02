@@ -88,7 +88,7 @@ uv run act-lens
 
 # リント・テスト
 uv run ruff check .
-uv run mypy src
+uv run basedpyright src
 uv run pytest
 ```
 
