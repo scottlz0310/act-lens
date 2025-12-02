@@ -92,6 +92,38 @@ uv run mypy src
 uv run pytest
 ```
 
+### 開発者向け: pre-commit & pre-push フック
+
+このリポジトリは `pre-commit` を利用して開発者の利便性と品質を保っています。導入済みの主要なフックは次の通りです。
+
+- 基本的なコード整形・安全チェック: `ruff`, `bandit`, `safety`
+- 文字列・改行・YAML の軽微な修正: `trailing-whitespace`, `end-of-file-fixer`, `check-yaml`
+- マージコンフリクトや大きすぎるファイルの検出: `check-merge-conflict`, `check-added-large-files`
+- `detect-secrets` によるシークレット漏洩の検出（`.secrets.baseline` を用いて既知の検出を無視）
+- `pytest` は `pre-push` フックとして実行されます（軽量なのでローカルで自動チェックを実施）
+
+導入手順:
+
+```bash
+# 依存関係のインストール
+uv sync
+
+# pre-commit のインストール
+uv run pre-commit install
+
+# シークレットのベースライン作成（初回のみ）
+uv run detect-secrets scan > .secrets.baseline
+# 必要に応じて .secrets.baseline をレビューしてコミット
+
+# 手動チェック
+uv run pre-commit run --all-files
+```
+
+注意:
+- `detect-secrets` は false positive を返すことがあります。ベースラインを更新する前に検出結果をレビューしてください。
+- `pytest` は push 時に自動実行されますが、CIでも再度チェックされます。
+
+
 ## ライセンス
 
 MIT License
