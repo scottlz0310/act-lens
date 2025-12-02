@@ -20,11 +20,7 @@ repos:
         args: [--fix]
       - id: ruff-format
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.0
-    hooks:
-      - id: mypy
-        args: [--config-file=pyproject.toml]
+  # NOTE: mypy hook removed per project policy: we use basedpyright instead
 
   - repo: local
     hooks:
