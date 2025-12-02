@@ -1,4 +1,5 @@
 """parser.pyのduration抽出テスト"""
+# pyright: reportPrivateUsage=false
 
 from act_lens.parser import LogParser
 
@@ -8,7 +9,7 @@ class TestDurationExtraction:
 
     def test_extract_duration_milliseconds(self):
         """ミリ秒形式の実行時間を抽出"""
-        log = """
+        log: str = """
         [Test/job]   ❌  Failure - Main Test [106.819485ms]
         """
         parser = LogParser()
@@ -18,7 +19,7 @@ class TestDurationExtraction:
 
     def test_extract_duration_seconds(self):
         """秒形式の実行時間を抽出"""
-        log = """
+        log: str = """
         [CI/test]   ✅  Success - Main Install [9.988223336s]
         """
         parser = LogParser()
@@ -28,7 +29,7 @@ class TestDurationExtraction:
 
     def test_extract_duration_minutes(self):
         """分秒形式の実行時間を抽出"""
-        log = """
+        log: str = """
         [Build/compile]   ✅  Success - Main Build [2m 30s]
         """
         parser = LogParser()
@@ -37,7 +38,7 @@ class TestDurationExtraction:
 
     def test_extract_duration_no_match(self):
         """実行時間が見つからない場合はNoneを返す"""
-        log = """
+        log: str = """
         [Test/job]   ❌  Failure - Main Test
         """
         parser = LogParser()
@@ -46,7 +47,7 @@ class TestDurationExtraction:
 
     def test_extract_duration_uses_last_match(self):
         """複数ある場合は最後のものを使用"""
-        log = """
+        log: str = """
         [Test/step1]   ✅  Success [1.5s]
         [Test/step2]   ✅  Success [2.5s]
         [Test/step3]   ❌  Failure [3.5s]

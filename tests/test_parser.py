@@ -1,4 +1,5 @@
 """LogParserのテスト"""
+# pyright: reportPrivateUsage=false
 
 import re
 

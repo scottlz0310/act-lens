@@ -27,6 +27,7 @@ class TestMarkdownFormatter:
             line_number=42,
             context_lines=["def test_example():", "    assert 5 == 3"],
             stack_trace="Traceback...",
+            duration=None,
         )
 
     def test_format_basic_structure(
@@ -98,6 +99,10 @@ class TestMarkdownFormatter:
             step="step",
             error_type="UNKNOWN",
             message="Something failed",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         markdown = formatter.format(minimal_failure)
         assert "# 🔍 Act-Lens Failure Report" in markdown
@@ -112,6 +117,9 @@ class TestMarkdownFormatter:
             error_type="TIMEOUT",
             message="Timeout",
             duration=125.5,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         markdown = formatter.format(failure)
         assert "Duration" in markdown

@@ -1,6 +1,7 @@
 """ログ解析とエラー抽出"""
 
 import re
+from collections.abc import Sequence
 from datetime import datetime
 
 from act_lens.models import FailureInfo
@@ -23,8 +24,7 @@ class LogParser:
         (r"FileNotFoundError", "FILE_NOT_FOUND"),
         (r"PermissionError", "PERMISSION"),
         (
-            r"❌\s*(Failure|failed)|"
-            r"Error: Process completed with exit code [1-9]",
+            r"❌\s*(Failure|failed)|" r"Error: Process completed with exit code [1-9]",
             "BUILD_FAILURE",
         ),
         (r"Error:", "UNKNOWN"),
@@ -91,7 +91,7 @@ class LogParser:
             stack_trace=stack_trace,
         )
 
-    def _extract_workflow_name(self, lines: list[str]) -> str:
+    def _extract_workflow_name(self, lines: Sequence[str]) -> str:
         """ワークフロー名をログから抽出"""
         for line in lines:
             # actログ: "INFO[0000] Using docker host ..."
@@ -114,7 +114,7 @@ class LogParser:
                 return error_type
         return None
 
-    def _extract_error_message(self, lines: list[str]) -> str:
+    def _extract_error_message(self, lines: Sequence[str]) -> str:
         """エラーメッセージを抽出"""
         for line in reversed(lines):
             # Failure/Error/FAILED を含む行を探す
@@ -122,7 +122,7 @@ class LogParser:
                 return line.strip()
         return "エラーメッセージが見つかりません"
 
-    def _extract_location(self, lines: list[str]) -> tuple[str | None, int | None]:
+    def _extract_location(self, lines: Sequence[str]) -> tuple[str | None, int | None]:
         """ファイルパスと行番号を抽出"""
         # Python形式: "  File "test.py", line 42"
         for line in lines:
@@ -131,7 +131,7 @@ class LogParser:
                 return match.group(1), int(match.group(2))
         return None, None
 
-    def _extract_stack_trace(self, lines: list[str]) -> str | None:
+    def _extract_stack_trace(self, lines: Sequence[str]) -> str | None:
         """スタックトレースを抽出"""
         trace_lines: list[str] = []
         in_trace = False
@@ -151,13 +151,13 @@ class LogParser:
         return "\n".join(trace_lines) if len(trace_lines) > 1 else None
 
     def _extract_context(
-        self, lines: list[str], file_path: str | None, line_number: int | None
+        self, lines: Sequence[str], file_path: str | None, line_number: int | None
     ) -> list[str]:
         """エラー発生箇所のコンテキスト行を抽出"""
         # TODO: ファイルを読んで前後3行を取得
         return []
 
-    def _extract_job_step(self, lines: list[str]) -> tuple[str, str]:
+    def _extract_job_step(self, lines: Sequence[str]) -> tuple[str, str]:
         """ジョブ名とステップ名を抽出"""
         job = "unknown"
         step = "unknown"
@@ -169,7 +169,7 @@ class LogParser:
 
         return job, step
 
-    def _extract_duration(self, lines: list[str]) -> float | None:
+    def _extract_duration(self, lines: Sequence[str]) -> float | None:
         """実行時間を抽出（秒単位）"""
         # actログ: "[106.819485ms]" または "[9.988223336s]"
         for line in reversed(lines):

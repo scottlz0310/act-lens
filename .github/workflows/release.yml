@@ -57,10 +57,10 @@ jobs:
         id: changelog
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          
+
           # CHANGELOG.mdから該当バージョンのセクションを抽出
           awk "/## \[$VERSION\]/,/## \[/" CHANGELOG.md | head -n -1 > release_notes.md
-          
+
           # 空の場合はデフォルトメッセージ
           if [ ! -s release_notes.md ]; then
             echo "Release v$VERSION" > release_notes.md

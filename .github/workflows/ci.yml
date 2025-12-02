@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.11', '3.12']
+        python-version: ["3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v6
@@ -33,8 +33,8 @@ jobs:
       - name: Run ruff format check
         run: uv run ruff format --check .
 
-      - name: Run mypy
-        run: uv run mypy src
+      - name: Run basedpyright
+        run: uv run basedpyright src
 
       - name: Run bandit
         run: uv run bandit -r src -c pyproject.toml
@@ -57,4 +57,4 @@ jobs:
         run: uv sync --dev
 
       - name: Run safety check
-        run: uv run safety check || true  # 警告のみ、失敗させない
+        run: uv run safety check

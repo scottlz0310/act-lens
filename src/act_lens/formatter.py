@@ -40,7 +40,7 @@ class MarkdownFormatter:
 
     def _error_summary(self, failure: FailureInfo) -> str:
         """エラーサマリーセクション"""
-        lines = ["### Error Summary", f"- Type: `{failure.error_type}`"]
+        lines: list[str] = ["### Error Summary", f"- Type: `{failure.error_type}`"]
 
         if location := failure.get_location():
             lines.append(f"- Location: `{location}`")
@@ -54,7 +54,7 @@ class MarkdownFormatter:
         if not failure.context_lines:
             return None
 
-        lines = ["### Error Details", "```python"]
+        lines: list[str] = ["### Error Details", "```python"]
         lines.extend(failure.context_lines)
         lines.append("```")
 

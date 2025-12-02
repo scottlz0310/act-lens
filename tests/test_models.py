@@ -16,6 +16,10 @@ class TestFailureInfo:
             step="Run tests",
             error_type="UNKNOWN",
             message="Test failed",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         assert failure.workflow == "test.yml"
         assert failure.job == "test-job"
@@ -54,6 +58,10 @@ class TestFailureInfo:
             step="step",
             error_type="UNKNOWN",
             message="error",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         assert failure.timestamp is not None  # 自動生成
         assert failure.duration is None
@@ -70,6 +78,10 @@ class TestFailureInfo:
             step="step",
             error_type="assertion",  # 小文字
             message="error",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         assert failure.error_type == "ASSERTION"
 
@@ -82,6 +94,9 @@ class TestFailureInfo:
             error_type="TIMEOUT",
             message="timeout",
             duration=45.0,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         formatted = failure.format_duration()
         assert formatted == "45.0秒"
@@ -95,6 +110,9 @@ class TestFailureInfo:
             error_type="TIMEOUT",
             message="timeout",
             duration=125.5,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         formatted = failure.format_duration()
         assert formatted == "2m 5s"
@@ -107,6 +125,10 @@ class TestFailureInfo:
             step="step",
             error_type="UNKNOWN",
             message="error",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         formatted = failure.format_duration()
         assert formatted == "0.0秒"
@@ -121,6 +143,8 @@ class TestFailureInfo:
             message="error",
             file_path="tests/test_example.py",
             line_number=42,
+            duration=None,
+            stack_trace=None,
         )
         location = failure.get_location()
         assert location == "tests/test_example.py:42"
@@ -134,6 +158,9 @@ class TestFailureInfo:
             error_type="ASSERTION",
             message="error",
             file_path="tests/test_example.py",
+            duration=None,
+            line_number=None,
+            stack_trace=None,
         )
         location = failure.get_location()
         assert location == "tests/test_example.py"
@@ -146,6 +173,10 @@ class TestFailureInfo:
             step="step",
             error_type="UNKNOWN",
             message="error",
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         location = failure.get_location()
         assert location == "場所不明"
@@ -159,5 +190,9 @@ class TestFailureInfo:
             error_type="UNKNOWN",
             message="error",
             context_lines=[],
+            duration=None,
+            file_path=None,
+            line_number=None,
+            stack_trace=None,
         )
         assert failure.context_lines == []

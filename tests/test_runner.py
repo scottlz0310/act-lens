@@ -20,13 +20,13 @@ class TestActRunner:
         runner = ActRunner(workflow_dir=custom_dir)
         assert runner.workflow_dir == custom_dir
 
-    def test_list_workflows_no_dir(self, tmp_path):
+    def test_list_workflows_no_dir(self, tmp_path: Path) -> None:
         """ディレクトリが存在しない場合は空リストを返す"""
         runner = ActRunner(workflow_dir=tmp_path / "nonexistent")
         workflows = runner.list_workflows()
         assert workflows == []
 
-    def test_list_workflows_empty_dir(self, tmp_path):
+    def test_list_workflows_empty_dir(self, tmp_path: Path) -> None:
         """空ディレクトリの場合は空リストを返す"""
         workflow_dir = tmp_path / "workflows"
         workflow_dir.mkdir(parents=True)
@@ -34,7 +34,7 @@ class TestActRunner:
         workflows = runner.list_workflows()
         assert workflows == []
 
-    def test_list_workflows_with_files(self, tmp_path):
+    def test_list_workflows_with_files(self, tmp_path: Path) -> None:
         """ワークフローファイルがある場合はリストを返す"""
         workflow_dir = tmp_path / "workflows"
         workflow_dir.mkdir(parents=True)
@@ -53,7 +53,7 @@ class TestActRunner:
         assert "readme.md" not in workflows
 
     @patch("act_lens.runner.subprocess.run")
-    def test_run_act_success(self, mock_run):
+    def test_run_act_success(self, mock_run: MagicMock) -> None:
         """actコマンド実行成功"""
         mock_run.return_value = MagicMock(
             stdout="Success output",
@@ -69,7 +69,7 @@ class TestActRunner:
         mock_run.assert_called_once()
 
     @patch("act_lens.runner.subprocess.run")
-    def test_run_act_with_workflow(self, mock_run):
+    def test_run_act_with_workflow(self, mock_run: MagicMock) -> None:
         """ワークフロー指定でactコマンド実行"""
         mock_run.return_value = MagicMock(
             stdout="Output",
@@ -87,7 +87,7 @@ class TestActRunner:
         assert str(Path(".github/workflows/ci.yml")) in str(call_args)
 
     @patch("act_lens.runner.subprocess.run")
-    def test_run_act_with_job(self, mock_run):
+    def test_run_act_with_job(self, mock_run: MagicMock) -> None:
         """ジョブ指定でactコマンド実行"""
         mock_run.return_value = MagicMock(
             stdout="Output",
@@ -104,7 +104,7 @@ class TestActRunner:
         assert "test" in call_args
 
     @patch("act_lens.runner.subprocess.run")
-    def test_run_act_failure(self, mock_run):
+    def test_run_act_failure(self, mock_run: MagicMock) -> None:
         """actコマンド実行失敗"""
         mock_run.return_value = MagicMock(
             stdout="",
