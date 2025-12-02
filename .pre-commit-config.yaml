@@ -7,11 +7,11 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
         args: ["--maxkb", "10000"]
-        exclude: ^\.secrets.baseline$
+        exclude: "^\\.secrets.baseline$"
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: debug-statements
-        exclude: ^tests/
+        exclude: '^tests/'
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.7

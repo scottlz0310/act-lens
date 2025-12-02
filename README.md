@@ -99,7 +99,7 @@ uv run pytest
 - 基本的なコード整形・安全チェック: `ruff`, `bandit`, `safety`
 - 文字列・改行・YAML の軽微な修正: `trailing-whitespace`, `end-of-file-fixer`, `check-yaml`
 - マージコンフリクトや大きすぎるファイルの検出: `check-merge-conflict`, `check-added-large-files`
-- `detect-secrets` によるシークレット漏洩の検出（`.secrets.baseline` を用いて既知の検出を無視）
+- `detect-secrets` によるシークレット漏洩の検出は手動で実行してください（重いため pre-commit には入れていません）。ベースラインは `.secrets.baseline` を使って管理します。
 - `pytest` は `pre-push` フックとして実行されます（軽量なのでローカルで自動チェックを実施）
 
 導入手順:

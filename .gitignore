@@ -163,6 +163,9 @@ pids
 public
 temp/
 tmp/
+# detect-secrets / scan output
+tmp.detect*.json
+tmp.detect.*.json
 vendor/
 venv.bak/
 yarn-debug.log*
