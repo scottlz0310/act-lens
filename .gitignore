@@ -179,3 +179,4 @@ yarn-error.log*
 .vscode/launch.json
 .vscode/settings.json
 .vscode/tasks.json
+.safety-project.ini
