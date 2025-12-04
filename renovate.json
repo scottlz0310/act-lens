@@ -26,11 +26,11 @@
     },
     {
       "description": "Group pytest and coverage tools",
-      "matchPackagePatterns": [
-        "^pytest",
-        "^coverage"
-      ],
-      "groupName": "testing tools"
+      "groupName": "testing tools",
+      "matchPackageNames": [
+        "/^pytest/",
+        "/^coverage/"
+      ]
     },
     {
       "description": "Group GitHub Actions",
