@@ -1,6 +1,69 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
-  ]
+    "config:recommended",
+    ":maintainLockFilesWeekly",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":timezone(Asia/Tokyo)"
+  ],
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "packageRules": [
+    {
+      "description": "Group linters and formatters",
+      "matchPackageNames": [
+        "ruff",
+        "basedpyright",
+        "pre-commit",
+        "bandit",
+        "safety",
+        "detect-secrets"
+      ],
+      "groupName": "linters and formatters"
+    },
+    {
+      "description": "Group pytest and coverage tools",
+      "matchPackagePatterns": [
+        "^pytest",
+        "^coverage"
+      ],
+      "groupName": "testing tools"
+    },
+    {
+      "description": "Group GitHub Actions",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github actions"
+    },
+    {
+      "description": "Automerge non-major updates for dev dependencies",
+      "matchDepTypes": [
+        "dev",
+        "dependency-groups"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Automerge pre-commit hook updates",
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "automerge": true
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "pre-commit": {
+    "enabled": true
+  }
 }
