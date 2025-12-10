@@ -180,3 +180,6 @@ yarn-error.log*
 .vscode/settings.json
 .vscode/tasks.json
 .safety-project.ini
+
+# Auto-generated entries from templates
+.pyrightcache/
