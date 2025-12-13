@@ -1,69 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    ":maintainLockFilesWeekly",
-    ":semanticCommits",
-    ":semanticCommitTypeAll(chore)",
-    ":timezone(Asia/Tokyo)"
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "packageRules": [
-    {
-      "description": "Group linters and formatters",
-      "matchPackageNames": [
-        "ruff",
-        "basedpyright",
-        "pre-commit",
-        "bandit",
-        "safety",
-        "detect-secrets"
-      ],
-      "groupName": "linters and formatters"
-    },
-    {
-      "description": "Group pytest and coverage tools",
-      "groupName": "testing tools",
-      "matchPackageNames": [
-        "/^pytest/",
-        "/^coverage/"
-      ]
-    },
-    {
-      "description": "Group GitHub Actions",
-      "matchManagers": [
-        "github-actions"
-      ],
-      "groupName": "github actions"
-    },
-    {
-      "description": "Automerge non-major updates for dev dependencies",
-      "matchDepTypes": [
-        "dev",
-        "dependency-groups"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "automerge": true
-    },
-    {
-      "description": "Automerge pre-commit hook updates",
-      "matchManagers": [
-        "pre-commit"
-      ],
-      "automerge": true
-    }
-  ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true
-  },
-  "pre-commit": {
-    "enabled": true
-  }
+    "github>scottlz0310/renovate-config//presets/default",
+    "github>scottlz0310/renovate-config//presets/languages/python",
+    "github>scottlz0310/renovate-config//presets/tools/precommit",
+    "github>scottlz0310/renovate-config//presets/options/automerge",
+    "github>scottlz0310/renovate-config//presets/options/schedule",
+    "github>scottlz0310/renovate-config//presets/options/security",
+    "github>scottlz0310/renovate-config//presets/options/production"
+  ]
 }
