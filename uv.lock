@@ -30,7 +30,7 @@ dev = [
 requires-dist = [
     { name = "pydantic", specifier = ">=2.0" },
     { name = "pyperclip", specifier = ">=1.8.0" },
-    { name = "rich", specifier = ">=13.7.1" },
+    { name = "rich", specifier = ">=13.9.4" },
     { name = "typer", specifier = ">=0.12.0" },
 ]
 
