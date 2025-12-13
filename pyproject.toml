@@ -16,20 +16,20 @@ classifiers = [
 ]
 
 dependencies = [
-    "typer>=0.12.5",
+    "typer>=0.20.0",
     "rich>=14.2.0",
-    "pydantic>=2.0.3",
-    "pyperclip>=1.8.2",
+    "pydantic>=2.12.5",
+    "pyperclip>=1.11.0",
 ]
 
 [dependency-groups]
 dev = [
-    "ruff>=0.0.292",
+    "ruff>=0.14.9",
     "basedpyright>=1.36.1",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
-    "bandit>=1.7.10",
-    "safety>=2.3.5",
+    "bandit>=1.9.2",
+    "safety>=3.7.0",
     "pre-commit>=4.5.0",
     "detect-secrets>=1.5.0",
     "types-pyperclip>=1.9.0.20250801",
