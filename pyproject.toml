@@ -3,7 +3,7 @@ name = "act-lens"
 version = "0.1.0"
 description = "actの出力をレンズで覗いて整形するCLIツール"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.14.2"
 authors = [{ name = "scottlz0310", email = "scott.lz0310@gmail.com" }]
 keywords = ["github-actions", "act", "cli", "ci", "testing"]
 classifiers = [
@@ -17,7 +17,7 @@ classifiers = [
 
 dependencies = [
     "typer>=0.12.0",
-    "rich>=13.7.0",
+    "rich>=13.7.1",
     "pydantic>=2.0",
     "pyperclip>=1.8.0",
 ]
@@ -25,12 +25,12 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ruff>=0.0.0",
-    "basedpyright>=1.19.0",
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
+    "basedpyright>=1.36.0",
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
     "bandit>=1.7.0",
     "safety>=2.0.0",
-    "pre-commit>=3.0.0",
+    "pre-commit>=3.8.0",
     "detect-secrets>=1.4.0",
     "types-pyperclip>=1.0.0",
 ]
