@@ -29,7 +29,7 @@ repos:
         entry: basedpyright
         language: python
         additional_dependencies:
-          ["basedpyright>=1.19.0", "types-pyperclip>=1.0.0"]
+          ["basedpyright>=1.19.1", "types-pyperclip>=1.9.0.20250801"]
         types: [python]
         require_serial: true
 
@@ -57,6 +57,6 @@ repos:
         name: pytest
         entry: pytest --maxfail=1 -q
         language: python
-        additional_dependencies: ["pytest>=7.0.0"]
+        additional_dependencies: ["pytest>=7.0.1"]
         pass_filenames: false
         stages: [pre-push]
