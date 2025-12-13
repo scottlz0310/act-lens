@@ -3,7 +3,7 @@ name = "act-lens"
 version = "0.1.0"
 description = "actの出力をレンズで覗いて整形するCLIツール"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11.14"
 authors = [{ name = "scottlz0310", email = "scott.lz0310@gmail.com" }]
 keywords = ["github-actions", "act", "cli", "ci", "testing"]
 classifiers = [
