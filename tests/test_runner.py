@@ -135,6 +135,18 @@ class TestActRunner:
         assert returncode == 1
         mock_run.assert_not_called()
 
+        # ".." (親ディレクトリ参照) も拒否される
+        output, returncode = runner.run_act(workflow="..")
+        assert returncode == 1
+        assert "'.'" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
+        # "." (カレントディレクトリ参照) も拒否される
+        output, returncode = runner.run_act(workflow=".")
+        assert returncode == 1
+        assert "'.'" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
     @patch("act_lens.runner.subprocess.run")
     def test_run_act_valid_workflow_only(self, mock_run: MagicMock) -> None:
         """有効なワークフロー名のみ許可"""

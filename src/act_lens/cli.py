@@ -68,7 +68,7 @@ def main(
 
     # ファイル保存
     if output:
-        # パストラバーサルを防ぐため絶対パスに解決
+        # 絶対パスに正規化して親ディレクトリの存在を確認
         resolved_output = output.resolve()
         # 親ディレクトリが存在することを確認
         if not resolved_output.parent.exists():
