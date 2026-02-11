@@ -24,7 +24,9 @@ def copy_to_clipboard(text: str) -> bool:
     except Exception:
         # pyperclip.PyperclipExceptionを含む全ての例外を処理
         # 汎用的なメッセージを表示し、詳細な例外情報は漏洩させない
-        console.print("[red]クリップボードコピー失敗:[/red] クリップボード操作でエラーが発生しました")
+        console.print(
+            "[red]クリップボードコピー失敗:[/red] クリップボード操作でエラーが発生しました"
+        )
         return False
 
 
