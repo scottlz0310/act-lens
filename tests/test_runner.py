@@ -117,3 +117,49 @@ class TestActRunner:
 
         assert "Error: act failed" in output
         assert returncode == 1
+
+    @patch("act_lens.runner.subprocess.run")
+    def test_run_act_path_traversal_protection(self, mock_run: MagicMock) -> None:
+        """パストラバーサル攻撃を防ぐ"""
+        runner = ActRunner()
+
+        # パス区切り文字を含むワークフロー名は拒否される
+        output, returncode = runner.run_act(workflow="../../../etc/passwd")
+
+        assert returncode == 1
+        assert "パス区切り文字" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
+        # ドットで始まる相対パスも拒否される
+        output, returncode = runner.run_act(workflow="./ci.yml")
+        assert returncode == 1
+        mock_run.assert_not_called()
+
+        # ".." (親ディレクトリ参照) も拒否される
+        output, returncode = runner.run_act(workflow="..")
+        assert returncode == 1
+        assert "'.'" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
+        # "." (カレントディレクトリ参照) も拒否される
+        output, returncode = runner.run_act(workflow=".")
+        assert returncode == 1
+        assert "'.'" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
+    @patch("act_lens.runner.subprocess.run")
+    def test_run_act_valid_workflow_only(self, mock_run: MagicMock) -> None:
+        """有効なワークフロー名のみ許可"""
+        mock_run.return_value = MagicMock(
+            stdout="Output",
+            stderr="",
+            returncode=0,
+        )
+
+        runner = ActRunner()
+        runner.run_act(workflow="ci.yml")
+
+        # 正常なワークフロー名は実行される
+        call_args = mock_run.call_args[0][0]
+        assert "act" in call_args
+        assert "-W" in call_args
