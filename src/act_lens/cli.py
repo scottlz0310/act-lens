@@ -68,8 +68,14 @@ def main(
 
     # ファイル保存
     if output:
-        output.write_text(report, encoding="utf-8")
-        console.print(f"[green]✓[/green] 保存: [bold]{output}[/bold]")
+        # パストラバーサルを防ぐため絶対パスに解決
+        resolved_output = output.resolve()
+        # 親ディレクトリが存在することを確認
+        if not resolved_output.parent.exists():
+            console.print(f"[red]エラー:[/red] 親ディレクトリが存在しません: {resolved_output.parent}")
+            return
+        resolved_output.write_text(report, encoding="utf-8")
+        console.print(f"[green]✓[/green] 保存: [bold]{resolved_output}[/bold]")
     else:
         saved_path = save_report(report)
         console.print(f"[green]✓[/green] 保存: [bold]{saved_path}[/bold]")

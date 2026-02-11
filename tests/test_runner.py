@@ -117,3 +117,32 @@ class TestActRunner:
 
         assert "Error: act failed" in output
         assert returncode == 1
+
+    @patch("act_lens.runner.subprocess.run")
+    def test_run_act_path_traversal_protection(self, mock_run: MagicMock) -> None:
+        """パストラバーサル攻撃を防ぐ"""
+        runner = ActRunner()
+
+        # パス区切り文字を含むワークフロー名は拒否される
+        output, returncode = runner.run_act(workflow="../../../etc/passwd")
+
+        assert returncode == 1
+        assert "パス区切り文字は使用できません" in output
+        mock_run.assert_not_called()
+
+    @patch("act_lens.runner.subprocess.run")
+    def test_run_act_valid_workflow_only(self, mock_run: MagicMock) -> None:
+        """有効なワークフロー名のみ許可"""
+        mock_run.return_value = MagicMock(
+            stdout="Output",
+            stderr="",
+            returncode=0,
+        )
+
+        runner = ActRunner()
+        runner.run_act(workflow="ci.yml")
+
+        # 正常なワークフロー名は実行される
+        call_args = mock_run.call_args[0][0]
+        assert "act" in call_args
+        assert "-W" in call_args
