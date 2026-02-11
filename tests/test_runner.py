@@ -127,7 +127,12 @@ class TestActRunner:
         output, returncode = runner.run_act(workflow="../../../etc/passwd")
 
         assert returncode == 1
-        assert "パス区切り文字は使用できません" in output
+        assert "パス区切り文字" in output or "相対パス" in output
+        mock_run.assert_not_called()
+
+        # ドットで始まる相対パスも拒否される
+        output, returncode = runner.run_act(workflow="./ci.yml")
+        assert returncode == 1
         mock_run.assert_not_called()
 
     @patch("act_lens.runner.subprocess.run")

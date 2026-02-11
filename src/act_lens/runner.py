@@ -37,12 +37,12 @@ class ActRunner:
 
         if workflow:
             # パストラバーサル攻撃を防ぐためファイル名のみを許可
-            workflow_name = Path(workflow).name
-            if workflow_name != workflow:
-                error_msg = "エラー: ワークフロー名にパス区切り文字は使用できません"
+            # パス区切り文字を含む場合は拒否
+            if "/" in workflow or "\\" in workflow or workflow.startswith("."):
+                error_msg = "エラー: ワークフロー名にパス区切り文字や相対パスは使用できません"
                 console.print(f"[red]{error_msg}[/red]")
                 return error_msg, 1
-            cmd.extend(["-W", str(self.workflow_dir / workflow_name)])
+            cmd.extend(["-W", str(self.workflow_dir / workflow)])
 
         if job:
             cmd.extend(["-j", job])
