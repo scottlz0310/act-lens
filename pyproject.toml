@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "typer>=0.23.0",
+    "typer>=0.23.1",
     "rich>=14.3.2",
     "pydantic>=2.12.5",
     "pyperclip>=1.11.0",
@@ -24,7 +24,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff>=0.15.0",
+    "ruff>=0.15.1",
     "basedpyright>=1.37.4",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
