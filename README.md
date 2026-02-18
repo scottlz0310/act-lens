@@ -1,3 +1,15 @@
+> [!WARNING]
+> **アーカイブ予定のお知らせ（2026-02-18）**
+> このリポジトリは近く GitHub 上で `Archived`（read-only）化します。既存ユーザー向けに理由と移行先を明記します。
+>
+> **理由**
+> - `ci-helper` と同様に、CI の失敗解析・改善サイクルを MCP サーバー活用で代替できるようになり、役割が重複したため。
+>
+> **移行先 / 代替手段**
+> - MCP サーバーを使った CI 実行・ログ整形フロー
+> - リポジトリ同期や環境管理は `devsync` へ: https://github.com/scottlz0310/devsync
+>
+> 既存利用中の方は、必要に応じて利用バージョンを固定してお使いください。
 # act-lens 🔍
 
 [![CI](https://github.com/scottlz0310/act-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/scottlz0310/act-lens/actions/workflows/ci.yml)
